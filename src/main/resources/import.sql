@@ -1,4 +1,4 @@
-INSERT INTO operators (name, email, password, operator_status) VALUES ('Marco Rossi', 'marco.rossi@example.com', 'password123', 'ACTIVE'),('Luca Bianchi', 'luca.bianchi@example.com', 'password456', 'DISPONIBILE'),('Giovanni Verdi', 'giovanni.verdi@example.com', 'password789', 'NON_DISPONIBILE');
+INSERT INTO operators (name, email, password, operator_status) VALUES ('Marco Rossi', 'marco.rossi@example.com', 'password123', 'DISPONIBILE'),('Luca Bianchi', 'luca.bianchi@example.com', 'password456', 'DISPONIBILE'),('Giovanni Verdi', 'giovanni.verdi@example.com', 'password789', 'NON_DISPONIBILE');
 
 INSERT INTO categories (name) VALUES ('ASSISTENZA'),('INSTALLAZIONE'),('GESTIONE_ACCOUNT'),('PROBLEMI_DI_SICUREZZA'),('SUPPORTO_HARDWARE');
 
