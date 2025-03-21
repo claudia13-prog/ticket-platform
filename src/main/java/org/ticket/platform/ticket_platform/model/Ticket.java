@@ -25,27 +25,27 @@ public class Ticket {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message="Title must not be null or blank, and its lenght cannot be be less than 1")
+    @NotBlank(message="Il titolo non può essere null e la sua lunghezza non può essere meno di 1")
     private String title;
 
-    @NotBlank(message="Description must not be null or blank, and its lenght cannot be be less than 1")
+    @NotBlank(message="La descrizione non può essere null e la sua lunghezza non può essere meno di 1")
     private String description;
 
-    @NotNull
+    @NotNull(message="Lo stato del ticket non può essere null")
     @Enumerated(EnumType.STRING)
     private Status status;
 
     @ManyToOne
     @JoinColumn(name="operator_id")
-    @NotNull
+    @NotNull(message="L'operatore non può essere null")
     private Operator operator;
 
     @ManyToOne
     @JoinColumn(name="category_id")
-    @NotNull
+    @NotNull(message="La categoria del ticket non può essere null")
     private Category category;
 
-    @NotNull
+    @NotNull(message="La data di creazione non può essere null")
     private LocalDate creationDate;
 
     @OneToMany(mappedBy = "ticket")
@@ -116,6 +116,7 @@ public class Ticket {
     public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
+
 
 
 }

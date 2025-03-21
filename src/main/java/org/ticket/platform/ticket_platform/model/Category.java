@@ -55,4 +55,15 @@ public class Category {
     }
 
 
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", name='" + getName() + "'" +
+            ", tickets='" + getTickets() + "'" +
+            "}";
+    }
+
+
+
 }

@@ -19,32 +19,57 @@
     <form class="w-75" th:action="@{/tickets/create}" method="post" th:object="${ticket}">
         <div class="mb-3">
           <label class="form-label">Titolo</label>
-          <input class="form-control" type="text" aria-label="default input example" th:field="*{title}">
+          <input class="form-control" type="text" aria-label="default input example" th:field="*{title}" th:errorClass="is-invalid">
+          <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback">
+            <ul>
+              <li th:each="error : ${#fields.errors('title')}" th:text="${error}" />
+            </ul>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Categoria</label>
-          <select th:field="*{category.id}" class="form-select" aria-label="Default select example">
-            <option th:each="category : ${categories}" th:value="*{category.id}" th:text="*{category.name}"></option>
+          <select th:field="*{category.id}" class="form-select" aria-label="Default select example" th:errorClass="is-invalid">
+            <option value="" selected hidden>Seleziona il tipo di categoria</option>
+            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
           </select>
+          <div th:if="${#fields.hasErrors('category')}" class="invalid-feedback">
+            <ul>
+              <li th:each="error : ${#fields.errors('category')}" th:text="${error}" />
+            </ul>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Descrizione</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}" th:errorClass="is-invalid"></textarea>
+          <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+            <ul>
+              <li th:each="error : ${#fields.errors('description')}" th:text="${error}" />
+            </ul>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Operatore</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Seleziona l'operatore</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+          <select th:field="*{operator.id}" class="form-select" aria-label="Default select example" th:errorClass="is-invalid">
+            <option value="" selected hidden>Seleziona l'operatore</option>
+            <option th:each="operator : ${operators}" th:value="${operator.id}" th:text="${operator.name}"></option>
           </select>
+          <div th:if="${#fields.hasErrors('operator')}" class="invalid-feedback">
+            <ul>
+              <li th:each="error : ${#fields.errors('operator')}" th:text="${error}" />
+            </ul>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Data di creazione</label>
-          <input class="form-control" type="date" aria-label="default input example">
+          <input class="form-control" type="date" th:field="*{creationDate}" th:value="${currentDate}" aria-label="default input example" />
+          <div th:if="${#fields.hasErrors('creationDate')}" class="invalid-feedback">
+            <ul>
+              <li th:each="error : ${#fields.errors('creationDate')}" th:text="${error}" />
+            </ul>
+          </div>
         </div>
-      <button type="submit" class="btn btn-primary">Crea ticket</button>
+      <input type="submit" value="Crea ticket" class="btn btn-primary"t />
+      <button type="reset" class="btn btn-warning">Resetta campi</button>
     </form>
   </main>
 
