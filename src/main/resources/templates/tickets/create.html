@@ -1,0 +1,55 @@
+<!doctype html>
+<!-- html tag with Thymeleaf -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap CSS -->
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
+<title>Crea un nuovo ticket</title>
+</head>
+<body>
+  
+  <header>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+  </header>
+
+  <main class="container d-flex justify-content-center">
+    <form class="w-75" th:action="@{/tickets/create}" method="post" th:object="${ticket}">
+        <div class="mb-3">
+          <label class="form-label">Titolo</label>
+          <input class="form-control" type="text" aria-label="default input example" th:field="*{title}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Categoria</label>
+          <select th:field="*{category.id}" class="form-select" aria-label="Default select example">
+            <option th:each="category : ${categories}" th:value="*{category.id}" th:text="*{category.name}"></option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Descrizione</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Operatore</label>
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Seleziona l'operatore</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Data di creazione</label>
+          <input class="form-control" type="date" aria-label="default input example">
+        </div>
+      <button type="submit" class="btn btn-primary">Crea ticket</button>
+    </form>
+  </main>
+
+
+<!-- Bootstrap Bundle with Popper -->
+<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
