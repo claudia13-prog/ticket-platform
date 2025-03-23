@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.ticket.platform.ticket_platform.model.Status;
 import org.ticket.platform.ticket_platform.model.Ticket;
 import org.ticket.platform.ticket_platform.repository.CategoryRepository;
@@ -75,6 +76,7 @@ public class TicketController {
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("ticket") Ticket formTicket, BindingResult bindingResult, Model model){
+        
         formTicket.setStatus(Status.APERTO);
         formTicket.setNotes(new ArrayList<>());
         
@@ -85,4 +87,35 @@ public class TicketController {
         repository.save(formTicket);
         return "redirect:/tickets";
     }
+
+    @GetMapping("/edit/{id}")
+    public String update(@PathVariable Integer id, Model model){
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("operators", operatorService.getAllOperators());
+        model.addAttribute("currentDate", LocalDate.now().toString());
+        model.addAttribute("ticket", repository.findById(id).get());
+        return "tickets/edit";
+
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("ticket") Ticket formTicket, BindingResult bindingResult, Model model){
+        //formTicket.setStatus(Status.APERTO);
+
+        if(bindingResult.hasErrors()){
+            return "tickets/edit";
+        }
+
+        repository.save(formTicket);
+        return "redirect:/tickets";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id){
+        Ticket ticket = repository.findById(id).get();
+        repository.delete(ticket);
+
+        return "redirect:/tickets";
+    }
+        
 }

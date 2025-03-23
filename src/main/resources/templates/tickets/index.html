@@ -16,7 +16,17 @@
   </header>
 
   <main class="container">
-    <h1 class="mb-3 text-center">Tickets</h1>
+    <h1 class="mb-2">Ticket</h1>
+
+    <div class="navbar bg-body-tertiary mb-3">
+      <div class="container-fluid">
+        <a th:href="@{/tickets/create}" class="btn btn-primary">Crea un nuovo ticket</a>
+        <form class="d-flex" role="search" th:action="@{/tickets/search/title}" method="get">
+          <input class="form-control me-2" type="search" placeholder="Cerca ticket" aria-label="Search" th:value="${title}">
+          <button class="btn btn-outline-success" type="submit">Cerca</button>
+        </form>
+      </div>
+    </div>
 
     <table class="table">
         <thead>
@@ -40,7 +50,39 @@
             <td th:text="*{operator.name}"/>
             <td th:text="*{creationDate}"/>
             <td>
-              <a th:href="@{/tickets/{id}(id=*{id})}" class="btn btn-primary">Mostra dettagli</a>
+              <a th:href="@{/tickets/{id}(id=*{id})}" class="btn btn-info btn-sm">Dettagli</a>
+            </td>
+            <td>
+              <a th:href="@{/tickets/edit/{id}(id=*{id})}" class="btn btn-success btn-sm">Modifica</a>
+            </td>
+            <td>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + *{id}">
+                Elimina
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" th:id="'delete-modal-' + *{id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Elimina ticket "[[*{title}]]"</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Sei sicuro di voler eliminare il ticket "[[*{title}]]" n. [[*{id}]]? 
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                      <form th:action="@{/tickets/delete/{id}(id=*{id})}" method="post">
+                        <input type="submit" value="Elimina" class="btn btn-danger" >
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
             </td>
           </tr>
         </tbody>
