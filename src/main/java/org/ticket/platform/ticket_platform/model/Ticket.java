@@ -31,7 +31,6 @@ public class Ticket {
     @NotBlank(message="La descrizione non può essere null e la sua lunghezza non può essere meno di 1")
     private String description;
 
-    @NotNull(message="Lo stato del ticket non può essere null")
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -49,7 +48,6 @@ public class Ticket {
     private LocalDate creationDate;
 
     @OneToMany(mappedBy = "ticket")
-    @Lob
     private List<Note> notes;
 
 
