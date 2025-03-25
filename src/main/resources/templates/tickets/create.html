@@ -15,8 +15,14 @@
     <nav th:replace="fragments/navbar :: navbar"></nav>
   </header>
 
-  <main class="container d-flex justify-content-center">
-    <form class="w-75" th:action="@{/tickets/create}" method="post" th:object="${ticket}">
+  <main class="container">
+    <h1 class="mb-3">Crea nuovo ticket</h1>
+    <form th:action="@{/tickets/create}" method="post" id="ticket-form"  th:object="${ticket}">
+
+        <ul>
+          <li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-danger"></li>
+        </ul>
+      
         <div class="mb-3">
           <label class="form-label">Titolo</label>
           <input class="form-control" type="text" aria-label="default input example" th:field="*{title}" th:errorClass="is-invalid">
@@ -68,7 +74,8 @@
             </ul>
           </div>
         </div>
-      <input type="submit" value="Crea ticket" class="btn btn-primary"t />
+
+      <input type="submit" value="Crea ticket" class="btn btn-primary" />
       <button type="reset" class="btn btn-warning">Resetta campi</button>
     </form>
   </main>
